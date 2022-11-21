@@ -1,52 +1,50 @@
 import React, { useState, useEffect } from "react";
 
 export default function TableComponent(props) {
-    const [isShown, setIsShown] = useState(false);
+    const [rowsData, setRowsData] = useState([]);
 
-    const loadClick = event => {
-        setIsShown(true);
+    const loadClick = () => {
+        setRowsData(props.data);
       };
 
-    const getKeys = () => {
-        return Object.keys(props.data[0]);
-        };
+      const deleteClick = () => {
+            const rows = [...rowsData];
+            const count = rows.length;
+            rows.splice(count-1, 1);
+            setRowsData(rows);
+      };
 
-        const getHeader = () => {
-            var keys = getKeys();
-            return keys.map((key, index)=>{
-            return <th key={key}>{key.toUpperCase()}</th>
-            })
-            };
+      const addClick = () => {
 
-            const RenderRow = (props) =>{
-                return props.keys.map((key, index)=>{
-                return <td key={props.data[key]}>{props.data[key]}</td>
-                })
-               };
-
-               const getRowsData = () => {
-                var items = props.data;
-                var keys = getKeys();
-                return items.map((row, index)=>{
-                return <tr key={index}><RenderRow key={index} data={row} keys={keys}/></tr>
-                })
-                };
+      };
 
     return (
         <div>
         <button onClick={loadClick}>Load</button>
+        <button onClick={deleteClick}>Delete</button>
+        <button onClick={addClick}>Add</button>
   
-        {isShown && (
-          <table>
-          <thead>
-          <tr>{getHeader()}</tr>
-          </thead>
-          <tbody>
-          {getRowsData()}
-          </tbody>
-          </table>
-        )}
+        <table>
+  <tr>
+    <th>Country</th>
+    <th>Domains</th>
+    <th>Web Pages</th>
+    <th>Alpha Two Code</th>
+    <th>Name</th>
+    <th>State-province</th>
+  </tr>
+  {rowsData.map(item =>
+  <tr>
+  <td>{item.name}</td>
+  <td>{item.domains}</td>
+  <td>{item.web_pages}</td>
+  <td>{item.alpha_two_code}</td>
+  <td>{item.name}</td>
+  <td>{item.state}</td>
+</tr>
+                    )}
 
+</table>
             </div>
         );           
     }
