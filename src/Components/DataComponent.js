@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SearchComponent from "./SearchComponent";
+import SearchComponent from "./TableComponent";
 
 export default function DataComponent() {
     const [data, setData] = useState(null);
