@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 export default function TableComponent(props) {
+    const [isShown, setIsShown] = useState(false);
+
+    const loadClick = event => {
+        setIsShown(true);
+      };
 
     const getKeys = () => {
         return Object.keys(props.data[0]);
@@ -28,15 +33,20 @@ export default function TableComponent(props) {
                 };
 
     return (
-            <div>
-            <table>
- <thead>
- <tr>{getHeader()}</tr>
- </thead>
- <tbody>
- {getRowsData()}
- </tbody>
- </table>
+        <div>
+        <button onClick={loadClick}>Load</button>
+  
+        {isShown && (
+          <table>
+          <thead>
+          <tr>{getHeader()}</tr>
+          </thead>
+          <tbody>
+          {getRowsData()}
+          </tbody>
+          </table>
+        )}
+
             </div>
         );           
     }
